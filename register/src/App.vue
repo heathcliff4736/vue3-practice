@@ -48,8 +48,10 @@ export default {
     //   }
     'user.name': {
       handler(newValue) {
-        // console.log('newName : ', newValue);
-        if (newValue.length < 2) {
+        if (!newValue) {
+          // 빈 문자열이면 에러 표시 안 함
+          this.msg.nameError = '';
+        } else if (newValue.length < 2) {
           this.msg.nameError = '이름은 2글자 이상이어야 합니다';
         } else if (!/^[가-힣a-zA-Z]+$/.test(newValue)) {
           this.msg.nameError = '이름은 한글 또는 영문만 입력 가능합니다';
@@ -62,7 +64,10 @@ export default {
     'user.email': {
       handler(newValue) {
         // console.log('newEmail : ', newValue);
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue)) {
+        if (!newValue) {
+          // 추가!
+          this.msg.emailError = '';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue)) {
           this.msg.emailError = '올바른 이메일 형식이 아닙니다.';
         } else {
           this.msg.emailError = '';
@@ -72,8 +77,10 @@ export default {
     },
     'user.password': {
       handler(newValue) {
-        // console.log('newPassword : ', newValue);
-        if (newValue.length < 8) {
+        if (!newValue) {
+          // 추가!
+          this.msg.pwError = '';
+        } else if (newValue.length < 8) {
           this.msg.pwError = '비밀번호는 8글자 이상이어야 합니다.';
         } else {
           this.msg.pwError = '';
@@ -83,7 +90,10 @@ export default {
     },
     'user.passwordConfirm': {
       handler(newValue) {
-        if (newValue !== this.user.password) {
+        if (!newValue) {
+          // 추가!
+          this.msg.pwNotMatchMsg = '';
+        } else if (newValue !== this.user.password) {
           this.msg.pwNotMatchMsg = '비밀번호가 일치하지 않습니다.';
         } else {
           this.msg.pwNotMatchMsg = '';
@@ -93,13 +103,28 @@ export default {
     },
   },
   methods: {
-    register() {
+    register(event) {
+      if (event) event.preventDefault();
+
+      if (!this.isValid) {
+        return;
+      }
+
       alert(
-        `이름 : ${this.user.name}\n
-      이메일 : ${this.user.email}\n
-      비밀번호 : ${this.user.password}\n
-      비밀번호 확인 : ${this.user.passwordConfirm}`
+        `이름: ${this.user.name}\n이메일: ${this.user.email}\n비밀번호: ${this.user.password}\n비밀번호 확인: ${this.user.passwordConfirm}`
       );
+
+      // 에러 메시지 초기화
+      this.msg.nameError = '';
+      this.msg.emailError = '';
+      this.msg.pwError = '';
+      this.msg.pwNotMatchMsg = '';
+
+      // 폼 초기화
+      this.user.name = '';
+      this.user.email = '';
+      this.user.password = '';
+      this.user.passwordConfirm = '';
     },
   },
 };
