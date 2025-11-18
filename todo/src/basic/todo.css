@@ -110,6 +110,10 @@ body {
   flex-shrink: 0;
 }
 
+.todo__update-icon {
+  flex-shrink: 0;
+}
+
 .todo__item--completed {
   background-color: #e2dede;
 }

@@ -7,14 +7,29 @@ export default {
       default() {
         return [];
       },
+      editingId: {
+        type: Number,
+        default: null,
+      },
     },
+  },
+  data() {
+    return {
+      editingText: '',
+    };
   },
   methods: {
     deleteTodo(id) {
       this.$emit('delete-todo', id);
     },
+    editTodo(id) {
+      this.$emit('edit-todo', id);
+    },
     updateTodo(id) {
       this.$emit('update-todo', id);
+    },
+    saveTodo(id, newMsg) {
+      this.$emit('save-todo', id, newMsg);
     },
   },
 };
@@ -38,7 +53,23 @@ export default {
         :for="`chk${item.id.toString()}`"
         class="todo__checkbox-label"
       ></label>
-      <span class="todo__item-text">{{ item.msg }}</span>
+      <span v-if="editingId !== item.id" class="todo__item-text">
+        {{ item.msg }}
+      </span>
+      <input
+        v-else
+        type="text"
+        v-model="editingText"
+        class="todo__item-input"
+        @keyup.enter="saveTodo(item.id, $event.target.value)"
+        @blur="saveTodo(item.id, $event.target.value)"
+      />
+      <span
+        class="material-symbols-outlined todo__edit-icon"
+        @click="editingId === item.id ? saveTodo(item.id) : editTodo(item.id)"
+      >
+        {{ editingId === item.id ? 'check' : 'edit' }}
+      </span>
       <span
         class="material-symbols-outlined todo__delete-icon"
         @click="deleteTodo(item.id)"

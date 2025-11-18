@@ -13,6 +13,7 @@ export default {
     return {
       todo: [],
       current: 'all',
+      editingId: null, // 편집모드인지 아닌지 판단할 속성
     };
   },
   computed: {
@@ -36,6 +37,19 @@ export default {
     updateTab(tab) {
       this.current = tab;
     },
+    editTodo(id) {
+      this.editingId = this.editingId === id ? null : id;
+    },
+    saveTodo(id, newMsg) {
+      if (!newMsg || !newMsg.trim()) {
+        alert('할 일을 입력해주세요!');
+        return;
+      }
+      this.todo = this.todo.map((v) =>
+        v.id === id ? { ...v, msg: newMsg.trim() } : v
+      );
+      this.editingId = null;
+    },
     deleteTodo(id) {
       this.todo = this.todo.filter((v) => v.id !== id);
     },
@@ -56,6 +70,7 @@ export default {
       :computed-todo="computedTodo"
       @delete-todo="deleteTodo"
       @update-todo="updateTodo"
+      @edit-todo="editTodo"
     />
     <TodoInput @add-todo="addTodo" />
   </div>
