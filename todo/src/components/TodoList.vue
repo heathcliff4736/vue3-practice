@@ -7,14 +7,11 @@ export default {
       default() {
         return [];
       },
-      editingId: {
-        type: Number,
-        default: null,
-      },
     },
   },
   data() {
     return {
+      editingId: null,
       editingText: '',
     };
   },
@@ -22,14 +19,23 @@ export default {
     deleteTodo(id) {
       this.$emit('delete-todo', id);
     },
-    editTodo(id) {
-      this.$emit('edit-todo', id);
-    },
     updateTodo(id) {
       this.$emit('update-todo', id);
     },
-    saveTodo(id, newMsg) {
-      this.$emit('save-todo', id, newMsg);
+    editTodo(item) {
+      this.editingId = item.id;
+      this.editingText = item.msg; // 현재 텍스트로 초기화
+    },
+    saveTodo(id) {
+      if (this.editingText.trim()) {
+        this.$emit('save-todo', id, this.editingText);
+        this.editingId = null;
+        this.editingText = '';
+      }
+    },
+    cancelEdit() {
+      this.editingId = null;
+      this.editingText = '';
     },
   },
 };
