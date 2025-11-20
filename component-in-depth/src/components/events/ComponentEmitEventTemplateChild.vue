@@ -4,10 +4,15 @@ import { ref } from 'vue';
 
 // greet: input과 v-model로 양방향 바인딩되는 문자열 상태
 const greet = ref('');
+const name = ref('');
+
+const props = defineProps({
+  backgroundColor: String,
+});
 </script>
 
 <template>
-  <div class="child">
+  <div class="child" :style="{ backgroundColor: backgroundColor }">
     <h3>Child 영역입니다</h3>
 
     <!-- 1) 인자 없이 이벤트만 올리는 버튼 -->
@@ -38,6 +43,10 @@ const greet = ref('');
       <button @click="$emit('greetingArgEvent', greet)">
         인사해요(인자전달)
       </button>
+      <div>
+        <input type="text" v-model="name" />
+        <button @click="$emit('greetingName', name)">이름 보내기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +54,7 @@ const greet = ref('');
 <style scoped>
 /* 자식 영역 배경 스타일 */
 .child {
-  background-color: rgb(210, 236, 244);
+  /* background-color: rgb(210, 236, 244); */
   padding: 20px;
 }
 

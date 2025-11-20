@@ -12,7 +12,9 @@ defineProps({
 
 // 부모가 관리하는 반응형 상태
 // message: 자식에서 이벤트가 발생했을 때 화면에 보여줄 문장
-const message = ref('');
+// const message = ref('');
+const message = ref([]);
+// message.value.push('hello');
 
 // 자식이 'greetingEvent' (또는 greeting-event) 를 emit 했을 때 실행할 함수
 // => 인자 없이, 고정된 문장을 message에 세팅
@@ -24,7 +26,12 @@ const greet = () => {
 // greet 매개변수: 자식이 올려준 문장 (payload, 데이터)
 const greetArg = (greet) => {
   // 부모의 message를 자식이 넘겨준 내용으로 갱신
-  message.value = greet;
+  // message.value = greet;
+  message.value.push(greet);
+};
+const greetName = (name) => {
+  // 부모의 message를 자식이 넘겨준 내용으로 갱신
+  message.value = '[' + name + ']님 환영합니다!';
 };
 </script>
 
@@ -45,10 +52,15 @@ const greetArg = (greet) => {
     <ComponentEmitEventTemplateChild
       v-on:greeting-event="greet"
       @greeting-arg-event="greetArg"
+      @greeting-name="greetName"
+      background-color="pink"
     />
 
     <!-- 자식 이벤트에 의해 바뀐 message 출력 -->
-    <h3>{{ message }}</h3>
+    <!-- <h3>{{ message }}</h3> -->
+    <ul>
+      <h3 v-for="(msg, index) in message" :key="index">- {{ msg }}</h3>
+    </ul>
   </div>
 </template>
 

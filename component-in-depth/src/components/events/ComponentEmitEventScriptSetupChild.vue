@@ -3,6 +3,11 @@ import { ref } from 'vue';
 
 // 사용자 입력 저장
 const greet = ref('');
+const name = ref('');
+
+const props = defineProps({
+  backgroundColor: String,
+});
 
 // 상위로 보낼 이벤트 정의
 // payload 검증이 가능한 형태로 defineEmits 사용
@@ -18,11 +23,19 @@ const emit = defineEmits({
       return false;
     }
   },
+  greetingName: (payload) => {
+    if (payload.trim().length != 0) {
+      return true;
+    } else {
+      console.warn('이름 입력 !!!');
+      return false;
+    }
+  },
 });
 </script>
 
 <template>
-  <div class="child">
+  <div class="child" :style="{ backgroundColor: backgroundColor }">
     <h2>Child Component</h2>
 
     <!-- 인자 없는 emit -->
@@ -37,6 +50,10 @@ const emit = defineEmits({
       <button @click="emit('greetingArgEvent', greet)">
         인자 포함 인사하기
       </button>
+    </div>
+    <div>
+      <input type="text" v-model="name" />
+      <button @click="$emit('greetingName', name)">이름 보내기</button>
     </div>
   </div>
 </template>
