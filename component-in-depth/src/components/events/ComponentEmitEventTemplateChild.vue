@@ -8,6 +8,7 @@ const name = ref('');
 
 const props = defineProps({
   backgroundColor: String,
+  isActive: Boolean,
 });
 </script>
 
@@ -22,7 +23,9 @@ const props = defineProps({
               - 부모에게 'greetingEvent'라는 이름의 커스텀 이벤트를 보낸다.
               - payload(데이터)는 없음.
             -->
-      <button @click="$emit('greetingEvent')">인사해요</button>
+      <button @click="$emit('greetingEvent')" :disabled="`${isActive}`">
+        인사해요
+      </button>
     </div>
 
     <!-- 2) 인자를 함께 보내는 버튼 -->
@@ -46,6 +49,9 @@ const props = defineProps({
       <div>
         <input type="text" v-model="name" />
         <button @click="$emit('greetingName', name)">이름 보내기</button>
+      </div>
+      <div>
+        <button @click="$emit('toggleEvent')">토글하기</button>
       </div>
     </div>
   </div>

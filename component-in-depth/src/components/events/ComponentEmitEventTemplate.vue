@@ -16,6 +16,12 @@ defineProps({
 const message = ref([]);
 // message.value.push('hello');
 
+const isActive = ref(false);
+
+const toggleEvent = () => {
+  isActive.value = !isActive.value;
+};
+
 // 자식이 'greetingEvent' (또는 greeting-event) 를 emit 했을 때 실행할 함수
 // => 인자 없이, 고정된 문장을 message에 세팅
 const greet = () => {
@@ -54,6 +60,7 @@ const greetName = (name) => {
       @greeting-arg-event="greetArg"
       @greeting-name="greetName"
       background-color="pink"
+      @toggle-event="toggleEvent"
     />
 
     <!-- 자식 이벤트에 의해 바뀐 message 출력 -->
