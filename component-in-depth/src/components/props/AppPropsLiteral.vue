@@ -11,13 +11,13 @@ const props = defineProps({ viewTitle: String });
 
 // reactive()를 이용해 반응형 배열 생성
 const fruits = reactive([
-  { id: 'f1', name: '사과', checked: true },
-  { id: 'f2', name: '파인애플', checked: false },
-  { id: 'f3', name: '포도', checked: false },
-  { id: 'f4', name: '딸기', checked: true },
-  { id: 'f5', name: '아보카도', checked: false },
-  { id: 'f6', name: '메론', checked: false },
-  { id: 'f7', name: '수박', checked: true },
+  { id: 'f1', name: '사과', checked: true, price: 1200, origin: '예산' },
+  { id: 'f2', name: '파인애플', checked: false, price: 8000, origin: '필리핀' },
+  { id: 'f3', name: '포도', checked: false, price: 2000, origin: '금산' },
+  { id: 'f4', name: '딸기', checked: true, price: 20000, origin: '괴산' },
+  { id: 'f5', name: '아보카도', checked: false, price: 6000, origin: '미국' },
+  { id: 'f6', name: '메론', checked: false, price: 8000, origin: '충주' },
+  { id: 'f7', name: '수박', checked: true, price: 16000, origin: '함안' },
 ]);
 // 과일 목록 배열 — 체크 여부 포함
 </script>
@@ -36,6 +36,8 @@ const fruits = reactive([
         :fruit-id="fruit.id"
         :fruit-name="fruit.name"
         :is-checked="fruit.checked"
+        :price="fruit.price"
+        :origin="fruit.origin"
       />
     </div>
   </div>

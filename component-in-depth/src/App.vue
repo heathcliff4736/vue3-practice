@@ -1,13 +1,16 @@
 <script setup>
 import { ref } from 'vue';
 import AppPropsLiteral from './components/props/AppPropsLiteral.vue';
+import AppPropsObject from './components/props/AppPropsObject.vue';
+import ComponentEmitEventTemplate from './components/events/ComponentEmitEventTemplate.vue';
+import ComponentEmitEventScriptSetup from './components/events/ComponentEmitEventScriptSetup.vue';
 
 const view = ref('');
 </script>
 
 <template>
   <div class="container">
-    <TheHeading />
+    <!-- <TheHeading /> -->
     <div class="menu">
       <button :class="{ active: view === 'literal' }" @click="view = 'literal'">
         Props Literal
@@ -26,6 +29,18 @@ const view = ref('');
       </button>
     </div>
     <AppPropsLiteral v-if="view === 'literal'" view-title="좋아하는 과일은?" />
+    <AppPropsObject
+      v-if="view === 'object'"
+      view-title="좋아하는 과일은? (Object data 전달)"
+    />
+    <ComponentEmitEventTemplate
+      v-if="view === 'template'"
+      view-title="ComponentEmitEventTemplate"
+    />
+    <ComponentEmitEventScriptSetup
+      v-if="view === 'script'"
+      view-title="ComponentEmitEventScriptSetup"
+    />
   </div>
 </template>
 <style scoped>

@@ -6,6 +6,8 @@ const props = defineProps({
   fruitId: String, // 과일 고유 ID
   fruitName: String, // 과일 이름
   isChecked: Boolean, // 체크 여부
+  price: Number,
+  origin: String,
 });
 
 // 이미지 경로를 동적으로 계산하는 computed 속성
@@ -27,7 +29,8 @@ const imgSrc = computed(() => {
 
     <label :for="fruitId">
       <img :src="imgSrc" class="img-fruit" :alt="fruitName" />
-      {{ fruitName }}
+      {{ fruitName }} : {{ price }}원 <br />
+      원산지 : {{ origin }}
     </label>
   </div>
 </template>
