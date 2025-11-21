@@ -2,9 +2,11 @@
 import { RouterLink, RouterView } from 'vue-router';
 </script>
 <template>
-	<nav>
-		<RouterLink to="/">home</RouterLink> &nbsp;&nbsp;
-		<RouterLink to="/about">about</RouterLink>
-	</nav>
-	<RouterView />
+  <nav>
+    <RouterLink to="/">home</RouterLink> &nbsp;&nbsp;
+    <RouterLink to="/about">about</RouterLink> &nbsp;&nbsp;
+    <RouterLink to="/user/mike/profile">UserInfo</RouterLink> &nbsp;&nbsp;
+    <RouterLink to="/user/mike">UserView</RouterLink>
+  </nav>
+  <RouterView />
 </template>
