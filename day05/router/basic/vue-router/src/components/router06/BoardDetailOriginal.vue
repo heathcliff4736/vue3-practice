@@ -1,26 +1,26 @@
 <script setup>
-import { useRouter } from "vue-router"; // route는 제거
+import { useRouter, useRoute } from "vue-router";
+// import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
-const router = useRouter(); // 페이지 이동용
-// const route = useRoute();  ← 삭제!
+const router = useRouter();
+const route = useRoute();
 
 const props = defineProps({ no: String });
 
 let articleNo = ref(0);
 
 onMounted(() => {
-  // route.params.no 대신 props.no 사용
+  //   articleNo.value = route.params.no;
+  console.log("route.params.no :: " + route.params.no);
   articleNo.value = props.no;
-  console.log("props.no :: " + props.no);
 });
 </script>
 
 <template>
   <div class="card">
     <div class="card-body">
-      <!-- <h4 class="card-title">{{ articleNo }}번글 제목</h4> -->
-      <h4 class="card-title">{{ props.no }}번글 제목</h4>
+      <h4 class="card-title">{{ articleNo }}번글 제목</h4>
       <p class="card-text">글 내용이 나와요</p>
       <button
         type="button"
@@ -31,10 +31,9 @@ onMounted(() => {
       </button>
       <button
         type="button"
-        @click="router.push({ name: 'boardmodify6', params: { no } })"
+        @click="router.push({ name: 'boardmodify6', params: { no: articleNo } })"
         class="btn btn-outline-dark btn-sm ms-2"
       >
-        <!-- @click="router.push({ name: 'boardmodify6', params: { no } })" -->
         글수정
       </button>
     </div>
