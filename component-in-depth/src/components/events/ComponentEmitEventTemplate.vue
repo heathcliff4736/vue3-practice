@@ -20,6 +20,9 @@ const isActive = ref(false);
 
 const toggleEvent = () => {
   isActive.value = !isActive.value;
+  isActive.value
+    ? message.value.push('활성화 상태입니다.')
+    : message.value.push('비활성화 상태입니다.');
 };
 
 // 자식이 'greetingEvent' (또는 greeting-event) 를 emit 했을 때 실행할 함수
